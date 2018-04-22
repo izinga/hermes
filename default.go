@@ -76,12 +76,12 @@ func (dt *Default) HTMLTemplate() string {
       background-color: #FFF;
     }
     .email-body_inner {
-      width: 570px;
+      width: 80%;
       margin: 0 auto;
       padding: 0;
     }
     .email-footer {
-      width: 570px;
+      width: 80%;
       margin: 0 auto;
       padding: 0;
       text-align: center;
@@ -294,7 +294,7 @@ func (dt *Default) HTMLTemplate() string {
           <!-- Email Body -->
           <tr>
             <td class="email-body" width="100%">
-              <table class="email-body_inner" align="center" width="570" cellpadding="0" cellspacing="0">
+              <table class="email-body_inner" align="center" width="80%" cellpadding="0" cellspacing="0">
                 <!-- Body content -->
                 <tr>
                   <td class="content-cell">
@@ -431,7 +431,7 @@ func (dt *Default) HTMLTemplate() string {
           </tr>
           <tr>
             <td>
-              <table class="email-footer" align="center" width="570" cellpadding="0" cellspacing="0">
+              <table class="email-footer" align="center" width="80%" cellpadding="0" cellspacing="0">
                 <tr>
                   <td class="content-cell">
                     <p class="sub center">
