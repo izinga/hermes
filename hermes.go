@@ -5,7 +5,7 @@ import (
 	"github.com/Masterminds/sprig"
 	"github.com/imdario/mergo"
 	"github.com/jaytaylor/html2text"
-	"gopkg.in/russross/blackfriday.v2"
+	"github.com/russross/blackfriday"
 	"html/template"
 )
 
@@ -73,7 +73,7 @@ type Body struct {
 
 // ToHTML converts Markdown to HTML
 func (c Markdown) ToHTML() template.HTML {
-	return template.HTML(blackfriday.Run([]byte(string(c))))
+	return template.HTML(blackfriday.MarkdownCommon([]byte(string(c))))
 }
 
 // Entry is a simple entry of a map
@@ -92,8 +92,8 @@ type Table struct {
 
 // Columns contains meta-data for the different columns
 type Columns struct {
-	CustomWidth     map[string]string
-	CustomAlignment map[string]string
+	CustomWidth      map[string]string
+	CustomAlignement map[string]string
 }
 
 // Action is an action the user can do on the email (click on a button)

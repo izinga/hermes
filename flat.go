@@ -50,7 +50,7 @@ func (dt *Flat) HTMLTemplate() string {
     }
     /* Masthead ----------------------- */
     .email-masthead {
-      padding: 25px 0;
+      padding: 2px 0;
       text-align: center;
     }
     .email-masthead_logo {
@@ -170,7 +170,7 @@ func (dt *Flat) HTMLTemplate() string {
     }
     cite {
       display: block;
-      font-size: 0.925rem; 
+      font-size: 0.925rem;
     }
     cite:before {
       content: "\2014 \0020";
@@ -296,7 +296,7 @@ func (dt *Flat) HTMLTemplate() string {
                       {{ .Email.Body.FreeMarkdown.ToHTML }}
                     {{ else }}
 
-                      {{ with .Email.Body.Dictionary }} 
+                      {{ with .Email.Body.Dictionary }}
                         {{ if gt (len .) 0 }}
                           <dl class="body-dictionary">
                             {{ range $entry := . }}
@@ -325,7 +325,7 @@ func (dt *Flat) HTMLTemplate() string {
                                           {{ with $width }}
                                             width="{{ . }}"
                                           {{ end }}
-                                          {{ $align := index .CustomAlignment $entry.Key }}
+                                          {{ $align := index .CustomAlignement $entry.Key }}
                                           {{ with $align }}
                                             style="text-align:{{ . }}"
                                           {{ end }}
@@ -340,7 +340,7 @@ func (dt *Flat) HTMLTemplate() string {
                                       {{ range $cell := $row }}
                                         <td
                                           {{ with $columns }}
-                                            {{ $align := index .CustomAlignment $cell.Key }}
+                                            {{ $align := index .CustomAlignement $cell.Key }}
                                             {{ with $align }}
                                               style="text-align:{{ . }}"
                                             {{ end }}
@@ -379,7 +379,7 @@ func (dt *Flat) HTMLTemplate() string {
                       {{ end }}
 
                     {{ end }}
-                    {{ with .Email.Body.Outros }} 
+                    {{ with .Email.Body.Outros }}
                         {{ if gt (len .) 0 }}
                           {{ range $line := . }}
                             <p>{{ $line }}</p>
@@ -394,7 +394,7 @@ func (dt *Flat) HTMLTemplate() string {
                     </p>
 
                     {{ if (eq .Email.Body.FreeMarkdown "") }}
-                      {{ with .Email.Body.Actions }} 
+                      {{ with .Email.Body.Actions }}
                         <table class="body-sub">
                           <tbody>
                               {{ range $action := . }}
@@ -477,13 +477,13 @@ func (dt *Flat) PlainTextTemplate() string {
       </table>
     {{ end }}
   {{ end }}
-  {{ with .Email.Body.Actions }} 
+  {{ with .Email.Body.Actions }}
     {{ range $action := . }}
-      <p>{{ $action.Instructions }} {{ $action.Button.Link }}</p> 
+      <p>{{ $action.Instructions }} {{ $action.Button.Link }}</p>
     {{ end }}
   {{ end }}
 {{ end }}
-{{ with .Email.Body.Outros }} 
+{{ with .Email.Body.Outros }}
   {{ range $line := . }}
     <p>{{ $line }}<p>
   {{ end }}

@@ -19,7 +19,7 @@ func (dt *Default) HTMLTemplate() string {
   <style type="text/css" rel="stylesheet" media="all">
     /* Base ------------------------------ */
     *:not(br):not(tr):not(html) {
-      font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+      font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
       -webkit-box-sizing: border-box;
       box-sizing: border-box;
     }
@@ -49,7 +49,7 @@ func (dt *Default) HTMLTemplate() string {
     }
     /* Masthead ----------------------- */
     .email-masthead {
-      padding: 25px 0;
+      padding: 2px 0;
       text-align: center;
     }
     .email-masthead_logo {
@@ -59,12 +59,12 @@ func (dt *Default) HTMLTemplate() string {
     .email-masthead_name {
       font-size: 16px;
       font-weight: bold;
-      color: #2F3133;
+      margin-bottom:10px;
+      // color: #2F3133;
       text-decoration: none;
-      text-shadow: 0 1px 0 white;
+      // text-shadow: 0 1px 0 white;
     }
     .email-logo {
-      max-height: 50px;
     }
     /* Body ------------------------------ */
     .email-body {
@@ -123,7 +123,9 @@ func (dt *Default) HTMLTemplate() string {
       word-break: break-all;
     }
     .content-cell {
-      padding: 35px;
+      // padding: 5px;
+      position: relative;
+      top: 30px;
     }
     .align-right {
       text-align: right;
@@ -134,6 +136,8 @@ func (dt *Default) HTMLTemplate() string {
       color: #2F3133;
       font-size: 19px;
       font-weight: bold;
+      color:#333333;font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-weight:300;line-height:1.6em;font-size:16px;margin:0;padding:0;
+      margin-bottom:20px;
     }
     h2 {
       margin-top: 0;
@@ -164,16 +168,18 @@ func (dt *Default) HTMLTemplate() string {
     }
     cite {
       display: block;
-      font-size: 0.925rem; 
+      font-size: 0.925rem;
     }
     cite:before {
       content: "\2014 \0020";
     }
     p {
       margin-top: 0;
+      margin-bottom: 3px;
       color: #74787E;
       font-size: 16px;
       line-height: 1.5em;
+      color:#333333;font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-weight:300;line-height:1.6em;font-size:16px;margin:0;padding:0;
     }
     p.sub {
       font-size: 12px;
@@ -186,13 +192,15 @@ func (dt *Default) HTMLTemplate() string {
     }
     th {
       padding: 0px 5px;
+      background-color : #00AEEF;
       padding-bottom: 8px;
+      font-size: 16px;
       border-bottom: 1px solid #EDEFF2;
     }
     th p {
       margin: 0;
       color: #9BA2AB;
-      font-size: 12px;
+      font-size: 16px;
     }
     td {
       padding: 10px 5px;
@@ -208,7 +216,8 @@ func (dt *Default) HTMLTemplate() string {
     .data-wrapper {
       width: 100%;
       margin: 0;
-      padding: 35px 0;
+      padding: 5px 0;
+      border:1px solid silver;
     }
     .data-table {
       width: 100%;
@@ -222,14 +231,18 @@ func (dt *Default) HTMLTemplate() string {
     }
     .data-table th p {
       margin: 0;
-      color: #9BA2AB;
-      font-size: 12px;
+      color: black;
+      font-size: 15px;
+      font-weight: 400;
     }
     .data-table td {
       padding: 10px 5px;
       color: #74787E;
       font-size: 15px;
       line-height: 18px;
+    }
+    .thankyou{
+      margin-top:20px;
     }
     /* Buttons ------------------------------ */
     .button {
@@ -257,6 +270,7 @@ func (dt *Default) HTMLTemplate() string {
         width: 100% !important;
       }
     }
+
   </style>
 </head>
 <body dir="{{.Hermes.TextDirection}}">
@@ -265,11 +279,11 @@ func (dt *Default) HTMLTemplate() string {
       <td class="content">
         <table class="email-content" width="100%" cellpadding="0" cellspacing="0">
           <!-- Logo -->
-          <tr>
+          <tr style="background-color: white;border-bottom: 1px solid silver;">
             <td class="email-masthead">
               <a class="email-masthead_name" href="{{.Hermes.Product.Link}}" target="_blank">
                 {{ if .Hermes.Product.Logo }}
-                  <img src="{{.Hermes.Product.Logo | url }}" class="email-logo" />
+                  <img src="{{.Hermes.Product.Logo | url }}" class="email-logo"/>
                 {{ else }}
                   {{ .Hermes.Product.Name }}
                 {{ end }}
@@ -296,7 +310,7 @@ func (dt *Default) HTMLTemplate() string {
                       {{ .Email.Body.FreeMarkdown.ToHTML }}
                     {{ else }}
 
-                      {{ with .Email.Body.Dictionary }} 
+                      {{ with .Email.Body.Dictionary }}
                         {{ if gt (len .) 0 }}
                           <dl class="body-dictionary">
                             {{ range $entry := . }}
@@ -325,7 +339,7 @@ func (dt *Default) HTMLTemplate() string {
                                           {{ with $width }}
                                             width="{{ . }}"
                                           {{ end }}
-                                          {{ $align := index .CustomAlignment $entry.Key }}
+                                          {{ $align := index .CustomAlignement $entry.Key }}
                                           {{ with $align }}
                                             style="text-align:{{ . }}"
                                           {{ end }}
@@ -340,7 +354,7 @@ func (dt *Default) HTMLTemplate() string {
                                       {{ range $cell := $row }}
                                         <td
                                           {{ with $columns }}
-                                            {{ $align := index .CustomAlignment $cell.Key }}
+                                            {{ $align := index .CustomAlignement $cell.Key }}
                                             {{ with $align }}
                                               style="text-align:{{ . }}"
                                             {{ end }}
@@ -379,7 +393,7 @@ func (dt *Default) HTMLTemplate() string {
                       {{ end }}
 
                     {{ end }}
-                    {{ with .Email.Body.Outros }} 
+                    {{ with .Email.Body.Outros }}
                         {{ if gt (len .) 0 }}
                           {{ range $line := . }}
                             <p>{{ $line }}</p>
@@ -387,14 +401,14 @@ func (dt *Default) HTMLTemplate() string {
                         {{ end }}
                       {{ end }}
 
-                    <p>
+                    <p style="margin-top:15px;">
                       {{.Email.Body.Signature}},
                       <br />
                       {{.Hermes.Product.Name}}
                     </p>
 
                     {{ if (eq .Email.Body.FreeMarkdown "") }}
-                      {{ with .Email.Body.Actions }} 
+                      {{ with .Email.Body.Actions }}
                         <table class="body-sub">
                           <tbody>
                               {{ range $action := . }}
@@ -438,7 +452,7 @@ func (dt *Default) HTMLTemplate() string {
 
 // PlainTextTemplate returns a Golang template that will generate an plain text email.
 func (dt *Default) PlainTextTemplate() string {
-	return `<h2>{{if .Email.Body.Title }}{{ .Email.Body.Title }}{{ else }}{{ .Email.Body.Greeting }} {{ .Email.Body.Name }},{{ end }}</h2>
+	return `<h2>{{if .Email.Body.Title }}{{ .Email.Body.Title }}{{ else }}{{ .Email.Body.Greeting }} {{ .Email.Body.Name }}{{ end }},</h2>
 {{ with .Email.Body.Intros }}
   {{ range $line := . }}
     <p>{{ $line }}</p>
@@ -477,18 +491,19 @@ func (dt *Default) PlainTextTemplate() string {
       </table>
     {{ end }}
   {{ end }}
-  {{ with .Email.Body.Actions }} 
+  {{ with .Email.Body.Actions }}
     {{ range $action := . }}
-      <p>{{ $action.Instructions }} {{ $action.Button.Link }}</p> 
+      <p>{{ $action.Instructions }} {{ $action.Button.Link }}</p>
     {{ end }}
   {{ end }}
 {{ end }}
-{{ with .Email.Body.Outros }} 
+{{ with .Email.Body.Outros }}
   {{ range $line := . }}
     <p>{{ $line }}<p>
   {{ end }}
 {{ end }}
-<p>{{.Email.Body.Signature}},<br>{{.Hermes.Product.Name}} - {{.Hermes.Product.Link}}</p>
+
+<p><br>{{.Email.Body.Signature}},<br>{{.Hermes.Product.Name}} - {{.Hermes.Product.Link}}</p>
 
 <p>{{.Hermes.Product.Copyright}}</p>
 `
