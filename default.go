@@ -303,6 +303,7 @@ func (dt *Default) HTMLTemplate() string {
                         {{ if gt (len .) 0 }}
                           {{ range $line := . }}
                             <p>{{ $line }}</p>
+                            <br>
                           {{ end }}
                         {{ end }}
                     {{ end }}
