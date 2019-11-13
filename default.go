@@ -27,7 +27,7 @@ func (dt *Default) HTMLTemplate() string {
       width: 100% !important;
       height: 100%;
       margin: 0;
-      line-height: 1.4;
+      line-height: 1;
       background-color: #F2F4F6;
       color: #74787E;
       -webkit-text-size-adjust: none;
@@ -157,14 +157,14 @@ func (dt *Default) HTMLTemplate() string {
       border-left: 10px solid #F0F2F4;
     }
     blockquote p {
-        font-size: 1.1rem;
+        font-size: 1rem;
         color: #999;
     }
     blockquote cite {
         display: block;
         text-align: right;
         color: #666;
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
     cite {
       display: block;
@@ -177,8 +177,8 @@ func (dt *Default) HTMLTemplate() string {
       margin-top: 0;
       margin-bottom: 3px;
       color: #74787E;
-      font-size: 16px;
-      line-height: 1.5em;
+      font-size: 13px;
+      line-height: 1em;
       color:#333333;font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-weight:300;line-height:1.6em;font-size:16px;margin:0;padding:0;
     }
     p.sub {
@@ -194,19 +194,19 @@ func (dt *Default) HTMLTemplate() string {
       padding: 0px 5px;
       background-color : #00AEEF;
       padding-bottom: 8px;
-      font-size: 16px;
+      font-size: 14px;
       border-bottom: 1px solid #EDEFF2;
     }
     th p {
       margin: 0;
       color: #9BA2AB;
-      font-size: 16px;
+      font-size: 14px;
     }
     td {
-      padding: 10px 5px;
+      padding : 5px 5px 5px 5px;
       color: #74787E;
-      font-size: 15px;
-      line-height: 18px;
+      font-size: 13px;
+      line-height: 16px;
     }
     .content {
       align: center;
@@ -226,20 +226,17 @@ func (dt *Default) HTMLTemplate() string {
     .data-table th {
       text-align: left;
       padding: 0px 5px;
-      padding-bottom: 8px;
       border-bottom: 1px solid #EDEFF2;
     }
     .data-table th p {
       margin: 0;
       color: black;
-      font-size: 15px;
+      font-size: 13px;
       font-weight: 400;
     }
     .data-table td {
-      padding: 10px 5px;
       color: #74787E;
-      font-size: 15px;
-      line-height: 18px;
+      font-size: 13px;
     }
     .thankyou{
       margin-top:20px;
@@ -302,8 +299,14 @@ func (dt *Default) HTMLTemplate() string {
                     {{ with .Email.Body.Intros }}
                         {{ if gt (len .) 0 }}
                           {{ range $line := . }}
-                            <p>{{ $line }}</p>
-                            <br>
+                            {{$arr := Split $line "   :   "}}
+                            {{ if eq (len $arr) 2 }}
+                              
+                              <p > <span style="font-weight: 400;">{{ index $arr 0 }} : </span><span>{{ index $arr 1 }}</span></p>
+                              
+                            {{ else }}
+                              <p >{{ $line }}</p>
+                            {{ end }}
                           {{ end }}
                         {{ end }}
                     {{ end }}
@@ -327,7 +330,7 @@ func (dt *Default) HTMLTemplate() string {
                         {{ $data := .Data }}
                         {{ $columns := .Columns }}
                         {{ if gt (len $data) 0 }}
-                          <table class="data-wrapper" width="100%" cellpadding="0" cellspacing="0">
+                          <table class="data-wrapper" width="100%" cellpadding="0" cellspacing="0" style="margin-top:20px;">
                             <tr>
                               <td colspan="2">
                                 <table class="data-table" width="100%" cellpadding="0" cellspacing="0">
@@ -377,7 +380,7 @@ func (dt *Default) HTMLTemplate() string {
                       {{ with .Email.Body.Actions }}
                         {{ if gt (len .) 0 }}
                           {{ range $action := . }}
-                            <p>{{ $action.Instructions }}</p>
+                            <p style="margin-top:20px;">{{ $action.Instructions }}</p>
                             <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0">
                               <tr>
                                 <td align="center">
