@@ -28,10 +28,17 @@ type Theme interface {
 // TextDirection of the text in HTML email
 type TextDirection string
 
+// Split split string
+func Split(s string, d string) []string {
+	arr := strings.Split(s, d)
+	return arr
+}
+
 var templateFuncs = template.FuncMap{
 	"url": func(s string) template.URL {
 		return template.URL(s)
 	},
+	"Split": Split,
 }
 
 // TDLeftToRight is the text direction from left to right (default)
@@ -182,18 +189,12 @@ func (h *Hermes) GeneratePlainText(email Email) (string, error) {
 	return html2text.FromString(template, html2text.Options{PrettyTables: true})
 }
 
-// Split split string
-func Split(s string, d string) []string {
-	arr := strings.Split(s, d)
-	return arr
-}
 func (h *Hermes) generateTemplate(email Email, tplt string) (string, error) {
 
 	err := setDefaultEmailValues(&email)
 	if err != nil {
 		return "", err
 	}
-	templateFuncs["Split"] = Split
 	// Generate the email from Golang template
 	// Allow usage of simple function from sprig : https://github.com/Masterminds/sprig
 	t, err := template.New("hermes").Funcs(sprig.FuncMap()).Funcs(templateFuncs).Parse(tplt)
